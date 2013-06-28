@@ -1,10 +1,5 @@
 package com.nareshkumarrao.shopkeepr.utils;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -64,20 +59,6 @@ public class transactionReportCreator {
 		html = html+"<tr><td></td><td></td><td></td><td><b>TOTAL</b></td><td><b>RM"+transList.getFullPrice(session)+"</b></td></tr>" +
 				"</table></body></html>";
 		
-		new File("generated_reports").mkdirs();
-		String filename = "generated_reports" + File.separator + "temp_report.html";
-		try {
-			PrintWriter writer = new PrintWriter(filename);
-			writer.println(html);
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			Desktop.getDesktop().open(new File(filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		loaders.saveGeneratedReport(html);
 	}
 }

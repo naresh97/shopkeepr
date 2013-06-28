@@ -21,6 +21,7 @@ import com.nareshkumarrao.shopkeepr.reportDialogs.inventoryReportDialog;
 import com.nareshkumarrao.shopkeepr.reportDialogs.transactionReportDialog;
 import com.nareshkumarrao.shopkeepr.stockDialogs.adjustStock;
 import com.nareshkumarrao.shopkeepr.stockDialogs.receiveStock;
+import com.nareshkumarrao.shopkeepr.utils.barcodeGenerator;
 import com.nareshkumarrao.shopkeepr.utils.loaders;
 import com.nareshkumarrao.shopkeepr.utils.srType;
 import com.nareshkumarrao.shopkeepr.utils.srType.transactionReport;
@@ -189,13 +190,24 @@ public class mainPOS extends JFrame {
 		JMenu mnReports = new JMenu("Reports");
 		menuBar.add(mnReports);
 		
+		JMenu mnInventory_1 = new JMenu("Inventory");
+		mnReports.add(mnInventory_1);
+		
 		JMenuItem mntmInventoryReport = new JMenuItem("Inventory Report");
+		mnInventory_1.add(mntmInventoryReport);
+		
+		JMenuItem mntmBarcodeGenerator = new JMenuItem("Barcode Generator");
+		mntmBarcodeGenerator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				barcodeGenerator.generate(inv);
+			}
+		});
+		mnInventory_1.add(mntmBarcodeGenerator);
 		mntmInventoryReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new inventoryReportDialog().setVisible(true);
 			}
 		});
-		mnReports.add(mntmInventoryReport);
 		
 		JMenu mnTransactions = new JMenu("Transactions");
 		mnReports.add(mnTransactions);

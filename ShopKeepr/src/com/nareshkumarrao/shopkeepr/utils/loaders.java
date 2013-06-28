@@ -1,5 +1,6 @@
 package com.nareshkumarrao.shopkeepr.utils;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -228,5 +229,24 @@ public class loaders {
 		}
 
 		return toReturn;
+	}
+	
+	public static void saveGeneratedReport(String html)
+	{
+		new File("generated_reports").mkdirs();
+		String filename = "generated_reports" + File.separator + "temp_report.html";
+		try {
+			PrintWriter writer = new PrintWriter(filename);
+			writer.println(html);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Desktop.getDesktop().open(new File(filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

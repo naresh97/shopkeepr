@@ -143,7 +143,7 @@ public class adjustStock extends JFrame {
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!inv.exists((String) comboBox.getSelectedItem())) {
-					inv.addItem((String) comboBox.getSelectedItem(),
+					inv.addItem(comboBox.getSelectedItem().toString().toUpperCase(),
 							nameField.getText(),
 							Integer.parseInt(qttField.getText()),
 							new BigDecimal(priceField.getText()));
