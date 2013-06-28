@@ -216,7 +216,7 @@ public class srType {
 	}
 	
 	public static class inventoryReport {
-		List<String> dates = new ArrayList<String>();
+		public List<String> dates = new ArrayList<String>();
 		List<inventory> inventories = new ArrayList<inventory>();
 		
 		public void addInvToLog(inventory inv)

@@ -3,8 +3,8 @@ package com.nareshkumarrao.shopkeepr.reportDialogs;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import com.nareshkumarrao.shopkeepr.utils.inventoryReportCreator;
@@ -13,20 +13,19 @@ import com.nareshkumarrao.shopkeepr.utils.srType.inventoryReport;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.List;
+import javax.swing.JComboBox;
 
 public class inventoryReportDialog extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField startField;
-	private JTextField endField;
+	private JComboBox startField;
+	private JComboBox endField;
 
 	public inventoryReportDialog() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		Calendar cal = Calendar.getInstance();
-		String date = dateFormat.format(cal.getTime());
+		final inventoryReport invRep = loaders.loadInventoryReport();
+		List<String> repDates = invRep.dates;
+		String[] str_repDates = repDates.toArray(new String[repDates.size()]);
 		
 		setAlwaysOnTop(true);
 		setResizable(false);
@@ -46,17 +45,17 @@ public class inventoryReportDialog extends JFrame {
 		lblEndDate.setBounds(6, 52, 67, 16);
 		contentPane.add(lblEndDate);
 		
-		startField = new JTextField();
+		startField = new JComboBox();
 		startField.setBounds(100, 6, 151, 28);
+		startField.setModel(new DefaultComboBoxModel(str_repDates));
+		startField.setSelectedIndex(repDates.size()-1);
 		contentPane.add(startField);
-		startField.setColumns(10);
-		startField.setText(date);
 		
-		endField = new JTextField();
+		endField = new JComboBox();
 		endField.setBounds(100, 46, 151, 28);
+		endField.setModel(new DefaultComboBoxModel(str_repDates));
+		endField.setSelectedIndex(repDates.size()-1);
 		contentPane.add(endField);
-		endField.setColumns(10);
-		endField.setText(date);
 		
 		JLabel lblPleaseNoteDate = new JLabel("Please Note: Date format is yyyyMMdd.");
 		lblPleaseNoteDate.setBounds(6, 80, 245, 21);
@@ -65,8 +64,8 @@ public class inventoryReportDialog extends JFrame {
 		JButton btnGenerateReports = new JButton("Generate Report");
 		btnGenerateReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inventoryReport invRep = loaders.loadInventoryReport();
-				inventoryReportCreator.createReport(invRep, startField.getText(), endField.getText());
+				
+				inventoryReportCreator.createReport(invRep, (String)startField.getSelectedItem(), (String)endField.getSelectedItem());
 				setVisible(false);
 				dispose();
 			}
