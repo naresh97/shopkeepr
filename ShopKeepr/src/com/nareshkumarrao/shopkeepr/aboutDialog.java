@@ -25,7 +25,7 @@ public class aboutDialog extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblShopkeeprV = new JLabel("Shopkeepr V1.2.5");
+		JLabel lblShopkeeprV = new JLabel("Shopkeepr V1.3");
 		lblShopkeeprV.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblShopkeeprV.setBounds(10, 11, 110, 19);
 		contentPane.add(lblShopkeeprV);

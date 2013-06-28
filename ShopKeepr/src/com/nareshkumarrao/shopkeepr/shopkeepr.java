@@ -45,6 +45,7 @@ public class shopkeepr {
 		    System.out.println("Hostname can not be resolved");
 		}
 		
+		System.out.println(hostname);
 		byte[] thedigest = null;
 
 		try {
