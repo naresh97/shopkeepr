@@ -26,6 +26,9 @@ public class inventoryReportCreator {
 		
 		String html = "<html>" +
 				"<head>" +
+				"<style type='text/css'>" +
+				"body{font-family:sans-serif}" +
+				"</style>" +
 				"</head><body>" +
 				"Inventory Report: Generated On - " + date + "<br/>" +
 				"Report Date: [<i>"+startDate+"</i>]" + " to [<i>"+endDate+"</i>]<br/><br/>" +

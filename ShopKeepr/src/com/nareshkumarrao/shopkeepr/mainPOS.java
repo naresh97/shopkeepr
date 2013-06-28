@@ -197,13 +197,24 @@ public class mainPOS extends JFrame {
 		});
 		mnReports.add(mntmInventoryReport);
 		
+		JMenu mnTransactions = new JMenu("Transactions");
+		mnReports.add(mnTransactions);
+		
 		JMenuItem mntmTransactionReport = new JMenuItem("Transaction Report");
+		mnTransactions.add(mntmTransactionReport);
+		
+		JMenuItem mntmTransactionViewer = new JMenuItem("Transaction Viewer");
+		mntmTransactionViewer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new transactionViewer(inv).setVisible(true);
+			}
+		});
+		mnTransactions.add(mntmTransactionViewer);
 		mntmTransactionReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new transactionReportDialog().setVisible(true);
 			}
 		});
-		mnReports.add(mntmTransactionReport);
 		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);

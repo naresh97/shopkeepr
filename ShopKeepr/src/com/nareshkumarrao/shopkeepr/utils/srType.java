@@ -157,7 +157,7 @@ public class srType {
 	}
 
 	public static class transactionList {
-		final List<transaction> transList = new ArrayList<transaction>();
+		public final List<transaction> transList = new ArrayList<transaction>();
 
 		public void addTrans(transaction trans) {
 			transList.add(trans);
@@ -177,10 +177,22 @@ public class srType {
 			return fullPrice;
 			
 		}
+		
+		public transaction getTrans(long time)
+		{
+			for(int i = 0; i < transList.size(); i++)
+			{
+				if(transList.get(i).time == time)
+				{
+					return transList.get(i);
+				}
+			}
+			return null;
+		}
 	}
 	
 	public static class transactionReport {
-		List<String> dates = new ArrayList<String>();
+		public List<String> dates = new ArrayList<String>();
 		List<transactionList> listoftrans = new ArrayList<transactionList>();
 		
 		public void addTransList(transactionList transList){

@@ -22,10 +22,15 @@ public class transactionReportCreator {
 		
 		String html = "<html>" +
 				"<head>" +
+				"<style type='text/css'>" +
+				"body{font-family:sans-serif}" +
+				".barcode{padding:10px;font-family:'Free 3 of 9'; src:url('FREE3OF9.ttf'); font-size:32;}" +
+				"</style>" +
 				"</head><body>" +
 				"Transaction Report - Session '"+session+"': Generated On - " + date + "<br/>" +
 				"Report Date: [<i>"+startDate+"</i>]" +
 				"<table border=1><tr>" +
+				"<td><b>Transaction Code</b></td>" +
 				"<td><b>No.</b></td>" +
 				"<td><b>Transaction ID</b></td>" +
 				"<td><b>Transaction Time</b></td>" +
@@ -44,18 +49,19 @@ public class transactionReportCreator {
 			
 			Date time = new Date(transList.transList.get(i).time);
 			DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
+			String transTime = Long.toString(transList.transList.get(i).time);
 			String toAdd="<tr>" +
+					"<td><span class='barcode'>*"+transTime+"*</span></td>" +
 					"<td>"+(i+1)+"</td>" +
-					"<td>"+transList.transList.get(i).time+"</td>" +
+					"<td>"+transTime+"</td>" +
 					"<td>"+timeFormat.format(time)+"</td>"+
-					"<td>"+transList.transList.get(i).totalPrice+"</td>"+
+					"<td>RM"+transList.transList.get(i).totalPrice+"</td>"+
 					"</tr>";
 			
 			html = html+toAdd;
 		}
 		
-		html = html+"<tr><td></td><td></td><td><b>TOTAL</b></td><td><b>"+transList.getFullPrice(session)+"</b></td></tr>" +
+		html = html+"<tr><td></td><td></td><td></td><td><b>TOTAL</b></td><td><b>RM"+transList.getFullPrice(session)+"</b></td></tr>" +
 				"</table></body></html>";
 		
 		new File("generated_reports").mkdirs();

@@ -1,14 +1,11 @@
 package com.nareshkumarrao.shopkeepr.reportDialogs;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -23,12 +20,13 @@ import java.awt.event.ActionEvent;
 public class transactionReportDialog extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField dateField;
+	private JComboBox dateField;
 
 	public transactionReportDialog() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		Calendar cal = Calendar.getInstance();
-		String date = dateFormat.format(cal.getTime());
+		final transactionReport transRep = loaders.loadTransactionReport();
+		List<String> transDates = transRep.dates;
+		String[]str_transDates = transDates.toArray((String[]) new String[transDates.size()]);
+		
 		
 		setAlwaysOnTop(true);
 		setTitle("Transaction Report");
@@ -44,11 +42,11 @@ public class transactionReportDialog extends JFrame {
 		lblReportDate.setBounds(6, 12, 92, 16);
 		contentPane.add(lblReportDate);
 		
-		dateField = new JTextField();
+		dateField = new JComboBox();
 		dateField.setBounds(110, 6, 215, 28);
+		dateField.setModel(new DefaultComboBoxModel(str_transDates));
+		dateField.setSelectedIndex(transDates.size()-1);
 		contentPane.add(dateField);
-		dateField.setColumns(10);
-		dateField.setText(date);
 		
 		JLabel lblPleaseNoteThe = new JLabel("Please Note: The format for the date is yyyyMMdd");
 		lblPleaseNoteThe.setBounds(6, 68, 319, 16);
@@ -66,8 +64,8 @@ public class transactionReportDialog extends JFrame {
 		JButton btnGenerateReport = new JButton("Generate Report");
 		btnGenerateReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				transactionReport transRep = loaders.loadTransactionReport();
-				transactionReportCreator.createReport(transRep, dateField.getText(), (String) comboBox.getSelectedItem());
+				
+				transactionReportCreator.createReport(transRep, (String)dateField.getSelectedItem(), (String) comboBox.getSelectedItem());
 				setVisible(false);
 				dispose();
 			}
