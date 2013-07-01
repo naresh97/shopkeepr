@@ -37,7 +37,7 @@ public class inventoryReportCreator {
 		
 		List<Integer> inventoryMovement = new ArrayList<Integer>();
 		
-		if(invRep.inventoryExists(startDate) && invRep.inventoryExists(endDate))
+		if(!invRep.inventoryExists(startDate) && !invRep.inventoryExists(endDate))
 		{
 			new alert("One of the dates, do not have an inventory report").setVisible(true);
 			return;

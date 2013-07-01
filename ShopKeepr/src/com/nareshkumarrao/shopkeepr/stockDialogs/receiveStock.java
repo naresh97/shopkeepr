@@ -49,7 +49,11 @@ public class receiveStock extends JFrame {
 					String id = idField.getText();
 					oldstockField.setText(Integer.toString(inv.getQuantity(id)));
 					receivField.setText("0");
-				}else{
+				}else if(idField.getText()=="")
+					{
+						//nth
+					}else{
+					
 					new alert("No such item").setVisible(true);
 				}
 			}

@@ -251,7 +251,7 @@ public class srType {
 		public boolean inventoryExists(String date)
 		{
 			int itemIndex = dates.indexOf(date);
-			if(itemIndex>0)
+			if(itemIndex>-1)
 			{
 				return true;
 			}
