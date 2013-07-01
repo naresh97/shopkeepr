@@ -21,6 +21,7 @@ import com.nareshkumarrao.shopkeepr.reportDialogs.inventoryReportDialog;
 import com.nareshkumarrao.shopkeepr.reportDialogs.transactionReportDialog;
 import com.nareshkumarrao.shopkeepr.stockDialogs.adjustStock;
 import com.nareshkumarrao.shopkeepr.stockDialogs.receiveStock;
+import com.nareshkumarrao.shopkeepr.stockDialogs.supplierDialog;
 import com.nareshkumarrao.shopkeepr.utils.barcodeGenerator;
 import com.nareshkumarrao.shopkeepr.utils.loaders;
 import com.nareshkumarrao.shopkeepr.utils.srType;
@@ -139,24 +140,35 @@ public class mainPOS extends JFrame {
 
 		JMenu mnInventory = new JMenu("Inventory");
 		menuBar.add(mnInventory);
-
-		JMenuItem mntmReceiveStock = new JMenuItem("Receive Stock");
-		mntmReceiveStock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				receiveStock dialog = new receiveStock(inv);
-				dialog.setVisible(true);
-			}
-		});
-		mnInventory.add(mntmReceiveStock);
-
-		JMenuItem mntmAdjustStock = new JMenuItem("Adjust Stock");
-		mntmAdjustStock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				adjustStock dialog = new adjustStock(inv);
-				dialog.setVisible(true);
-			}
-		});
-		mnInventory.add(mntmAdjustStock);
+		
+		JMenu mnStockAdjustments = new JMenu("Stock Adjustments");
+		mnInventory.add(mnStockAdjustments);
+				
+						JMenuItem mntmAdjustStock = new JMenuItem("Adjust Stock");
+						mnStockAdjustments.add(mntmAdjustStock);
+						mntmAdjustStock.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								adjustStock dialog = new adjustStock(inv);
+								dialog.setVisible(true);
+							}
+						});
+		
+				JMenuItem mntmReceiveStock = new JMenuItem("Receive Stock");
+				mnStockAdjustments.add(mntmReceiveStock);
+				
+				JMenuItem mntmSuppliers = new JMenuItem("Suppliers");
+				mntmSuppliers.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						new supplierDialog().setVisible(true);
+					}
+				});
+				mnInventory.add(mntmSuppliers);
+				mntmReceiveStock.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						receiveStock dialog = new receiveStock(inv);
+						dialog.setVisible(true);
+					}
+				});
 
 		JMenu mnTransaction = new JMenu("Transaction");
 		menuBar.add(mnTransaction);

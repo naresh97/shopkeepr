@@ -24,13 +24,14 @@ public class receiveStock extends JFrame {
 	private JTextField idField;
 	private JTextField receivField;
 	private JTextField oldstockField;
+	private JTextField textField;
 
 	public receiveStock(final inventory inv) {
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setTitle("Receive Stock");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 277, 171);
+		setBounds(100, 100, 277, 226);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -49,7 +50,7 @@ public class receiveStock extends JFrame {
 					String id = idField.getText();
 					oldstockField.setText(Integer.toString(inv.getQuantity(id)));
 					receivField.setText("0");
-				}else if(idField.getText()=="")
+				}else if(idField.getText().matches(""))
 					{
 						//nth
 					}else{
@@ -114,7 +115,7 @@ public class receiveStock extends JFrame {
 				}
 			}
 		});
-		btnApplyChange.setBounds(6, 113, 117, 29);
+		btnApplyChange.setBounds(6, 158, 117, 29);
 		contentPane.add(btnApplyChange);
 		
 		JButton btnClose = new JButton("Close");
@@ -124,7 +125,18 @@ public class receiveStock extends JFrame {
 				dispose();
 			}
 		});
-		btnClose.setBounds(132, 113, 134, 29);
+		btnClose.setBounds(132, 158, 134, 29);
 		contentPane.add(btnClose);
+		
+		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setEditable(false);
+		textField.setBounds(132, 118, 134, 29);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblSupplier = new JLabel("Supplier:");
+		lblSupplier.setBounds(6, 125, 46, 14);
+		contentPane.add(lblSupplier);
 	}
 }

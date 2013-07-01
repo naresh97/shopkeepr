@@ -264,5 +264,93 @@ public class srType {
 			return inventories.get(itemIndex);
 		}
 	}
+	
+	public static class supplierList
+	{
+		public List<String> suppliers = new ArrayList<String>();
+		List<ArrayList<String>> supplierItems = new ArrayList<ArrayList<String>>();
+		
+		public String getSupplierName(String id)
+		{
+			for(int i=0; i<suppliers.size(); i++)
+			{
+				for(int i1=0; i1<supplierItems.get(i).size(); i1++)
+				{
+					if(supplierItems.get(i).get(i1).matches(id))
+					{
+						return suppliers.get(i);
+					}
+				}
+			}
+			return null;
+		}
+		
+		public void changeSupplier(String id, String newSupplier)
+		{
+			String oldSupplier = getSupplierName(id);
+			if(oldSupplier == newSupplier)
+			{
+				return;
+			}
+			if(oldSupplier==null)
+			{
+				addItem(id, newSupplier);
+			}
+			if(suppliers.indexOf(oldSupplier)>-1)
+			{
+				int oindex = suppliers.indexOf(oldSupplier);
+				if(supplierItems.get(oindex).indexOf(id)>-1)
+				{
+					int nindex = supplierItems.get(oindex).indexOf(id);
+					int addIndex = suppliers.indexOf(newSupplier);
+					supplierItems.get(oindex).remove(nindex);
+					if(addIndex > -1)
+					{
+						supplierItems.get(addIndex).add(id);
+					}
+				}
+			}
+		}
+		public void removeItem(String id)
+		{
+			String oldSupplier = getSupplierName(id);
+			if(suppliers.indexOf(oldSupplier)>-1)
+			{
+				int oindex = suppliers.indexOf(oldSupplier);
+				if(supplierItems.get(oindex).indexOf(id)>-1)
+				{
+					int nindex = supplierItems.get(oindex).indexOf(id);
+					supplierItems.get(oindex).remove(nindex);
+				}
+			}
+		}
+		public void addItem(String id, String suppl)
+		{
+			if(suppliers.indexOf(suppl)>-1)
+			{
+				int oindex = suppliers.indexOf(suppl);
+				if(supplierItems.get(oindex).indexOf(id)<0)
+				{
+					supplierItems.get(oindex).add(id);
+				}
+			}
+		}
+		
+		public void addSupplier(String suppl)
+		{
+			suppliers.add(suppl);
+			supplierItems.add(new ArrayList<String>());
+		}
+		
+		public void removeSupplier(String suppl)
+		{
+			int oindex = suppliers.indexOf(suppl);
+			if(oindex>-1)
+			{
+				suppliers.remove(oindex);
+				supplierItems.remove(oindex);
+			}
+		}
+	}
 
 }

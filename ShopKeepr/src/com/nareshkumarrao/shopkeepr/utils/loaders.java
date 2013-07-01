@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.nareshkumarrao.shopkeepr.utils.srType.inventory;
 import com.nareshkumarrao.shopkeepr.utils.srType.inventoryReport;
+import com.nareshkumarrao.shopkeepr.utils.srType.supplierList;
 import com.nareshkumarrao.shopkeepr.utils.srType.transactionReport;
 
 public class loaders {
@@ -93,7 +94,7 @@ public class loaders {
 			writer.println(toWrite);
 			writer.close();
 		} catch (FileNotFoundException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -140,7 +141,7 @@ public class loaders {
 			writer.println(toWrite);
 			writer.close();
 		} catch (FileNotFoundException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
@@ -191,7 +192,7 @@ public class loaders {
 			writer.println(toWrite);
 			writer.close();
 		} catch (FileNotFoundException e) {
-
+			e.printStackTrace();
 		}
 	}
 	
@@ -246,6 +247,57 @@ public class loaders {
 		try {
 			Desktop.getDesktop().open(new File(filename));
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static supplierList loadSupplierList()
+	{
+		Gson gson = new Gson();
+		String filename = "data" + File.separator + "supplier.json";
+		File invFile = new File(filename);
+		supplierList toReturn = new supplierList();
+		
+		try {
+			if (invFile.isFile()) {
+				BufferedReader br = new BufferedReader(new FileReader(filename));
+				String totalStr = "";
+				String str_line;
+
+				while ((str_line = br.readLine()) != null) {
+					if (str_line.length() != 0) {
+						totalStr = str_line;
+					}
+				}
+				br.close();
+				toReturn = gson.fromJson(totalStr, supplierList.class);
+			} else {
+				new File("data").mkdirs();
+				String toWrite = gson.toJson(toReturn);
+				PrintWriter writer = new PrintWriter(filename);
+				writer.println(toWrite);
+				writer.close();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return toReturn;
+	}
+	
+	public static void saveSupplierList(supplierList sList)
+	{
+		Gson gson = new Gson();
+		new File("data").mkdirs();
+		String toWrite = gson.toJson(sList);
+		String filename = "data" + File.separator + "supplier.json";
+		try {
+			PrintWriter writer = new PrintWriter(filename);
+			writer.println(toWrite);
+			writer.close();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
